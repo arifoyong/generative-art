@@ -8,7 +8,7 @@ class Sketch extends Component {
 
   componentDidMount(){
     const p5 = require("p5")
-    const canvasOffset = 20
+    const canvasOffset = 0
     
     this.sketch = new p5( p => {
       const pallete = [
@@ -21,6 +21,7 @@ class Sketch extends Component {
       p.setup = ()  => {
           p.createCanvas(p.windowWidth-canvasOffset, p.windowHeight-canvasOffset)
           .parent(this.renderRef.current);
+          p.background("#F7ECDE")
           p.noLoop()
       }
       p.windowResized = () => {
@@ -47,6 +48,7 @@ class Sketch extends Component {
         }
    
         for (var i=10; i<lines.length-1; i++) {
+          p.fill("#F7ECDE")
           p.beginShape()
           p.vertex(lines[i][0].x, lines[i][0].y)
           for (var j=0; j<lines[i].length-1; j++) {
