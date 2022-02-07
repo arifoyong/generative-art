@@ -36,6 +36,8 @@ class Sketch extends Component {
           }
         }
 
+        p.strokeWeight(2)
+        p.stroke("#1810F9")
         const step = 20
         const width = p.windowWidth-canvasOffset
         const height = p.windowWidth-canvasOffset
@@ -44,6 +46,20 @@ class Sketch extends Component {
             DrawLines(x,y, step, step)
           }
         }
+
+        p.strokeWeight(50)
+        p.noFill()
+        
+        // const shadowOffset = 10
+        // p.stroke(150)
+        // p.ellipse(width/2+shadowOffset, height/2+shadowOffset, 300)
+        p.drawingContext.shadowOffsetX = 15;
+        p.drawingContext.shadowOffsetY = 5;
+        p.drawingContext.shadowBlur = 20;
+        p.drawingContext.shadowColor = p.color("#8D8D8D");
+        p.stroke(255)
+        p.ellipse(width/2, height/2, 300)
+        
         
       }
     });
