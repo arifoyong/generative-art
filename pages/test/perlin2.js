@@ -25,10 +25,12 @@ const Perlin2 = () => {
   
     p.draw = () => {
       p.noStroke()
+      p.strokeWeight(0.1)
       p.fill(255)
 
-      for (let i=0; i<points.length; i++) {
-        let angle = p.map(p.noise(points[i].x*mult, points[i].y*mult), 0,1, 0, 720)
+      let pt = 24
+      for (let i=pt; i<pt+20; i++) {
+        let angle = p.map(p.noise(points[i].x*mult, points[i].y*mult), 0,1, 0, p.windowWidth)
         
         points[i].add(p.createVector(p.cos(angle), p.sin(angle)))
         p.ellipse(points[i].x, points[i].y, 5)
