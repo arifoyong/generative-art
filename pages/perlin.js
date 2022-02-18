@@ -7,9 +7,7 @@ const Perlin3 = () => {
   const arrow = (p, x, y, size, angle) => {
     p.push()
       p.fill(0)
-      // p.noFill()
       p.translate(x,y)
-      // p.rect(0,0,size*2, size*2)
       p.rotate(angle)
       p.ellipse(0,0,size/4)
       p.line(0,0,0,size)
@@ -30,30 +28,20 @@ const Perlin3 = () => {
       let sq = 20
       let mult= 1/2000
       
-      let curlPosX = p.random(10, p.windowHeight/2)
-      let curlPosY = p.random(0, p.windowWidth)
-      let changed = true
-     
+      let curlPos1 = p.random(0, p.windowWidth)
 
       for (let x=0; x<p.windowWidth; x+=sq) {
-        // if (x > p.windowWidth/2 && changed===true) {
-        //   curlPosX = p.random(p.windowHeight/2, p.windowWidth-10)
-        //   curlPosY = p.random(p.windowHeight/2, p.windowHeight-10)
-        //   changed=false
-        // }
         i = x/sq
         field[i] = []
         fieldId[i] = []
         for (let y=0; y<p.windowHeight; y+=sq) {      
           j = y/sq
-          // dAngle = j / (p.windowHeight/sq) * Math.PI 
+          let dAngle3 = j / (p.windowHeight/sq) * Math.PI 
           dAngle = p.map(p.noise(x*mult, y*mult), 0,1, 0, Math.PI*3)
-          let dAngle2 = p.atan2(curlPosY-y, curlPosY-x)  - Math.PI/2
+          let dAngle2 = p.atan2(curlPos1-y, curlPos1-x)  - Math.PI/2
 
-          field[i][j] =  dAngle + dAngle2 
+          field[i][j] =  dAngle + dAngle3
           fieldId[i][j] = -1
-
-
           // arrow(p, sq*i, sq*j, sq/2 , field[i][j])
         }
       }
@@ -65,7 +53,7 @@ const Perlin3 = () => {
       for (let i=0; i<2000; i++) {
         p.strokeWeight(p.random(5,20))
         p.strokeCap(p.SQUARE)
-        p.strokeJoin(p.SQUARE)
+        p.strokeJoin(p.BEVEL)
         p.stroke(p.random(250), p.random(250), p.random(250))
 
         let x=p.random(10, p.windowWidth-10)
@@ -77,8 +65,8 @@ const Perlin3 = () => {
         p.beginShape()
         Loop1:
         for (let j=0; j<numSteps; j++) {
-          p.vertex(x,y)
-   
+          p.curveVertex(x,y)
+
           let col_index = p.int(x/sq)
           let row_index = p.int(y/sq)
 
