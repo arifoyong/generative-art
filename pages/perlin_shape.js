@@ -51,11 +51,16 @@ const PerlinShape = () => {
 
       
       p.noStroke()
-      for (let i=0; i<100; i++) {
+      p.colorMode(p.HSB, 100)
+      for (let i=0; i<500; i++) {
         let circleSize = p.random(5,20)
         p.strokeCap(p.SQUARE)
         p.strokeJoin(p.BEVEL)
-        p.fill(p.random(250), p.random(250), p.random(250))
+
+        let initColor = p.random(100) 
+        let initSat = 100
+        let initVal = 100
+        p.fill(initColor, initSat,initVal)
 
         let x=p.random(10, p.windowWidth-10)
         let y=p.random(10, p.windowHeight+10)
@@ -65,8 +70,10 @@ const PerlinShape = () => {
 
         p.beginShape()
         Loop1:
-        for (let j=0; j<100; j++) {
-          p.ellipse(x,y, circleSize)
+        for (let j=0; j<numSteps; j++) {
+          p.rect(x,y, circleSize, circleSize)
+         
+          
 
           let col_index = p.int(x/sq)
           let row_index = p.int(y/sq)
@@ -82,6 +89,9 @@ const PerlinShape = () => {
           }
 
           let grid_angle=field[col_index][row_index] + Math.PI/2
+
+          initColor = p.map(grid_angle, Math.PI/2, Math.PI/2 +Math.PI*3, 0,100)
+          p.fill(initColor, initSat,initVal)
          
           let x_step=step_length * p.cos(grid_angle)
           let y_step=step_length * p.sin(grid_angle)
